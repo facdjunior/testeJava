@@ -46,21 +46,7 @@ public class GenericDAO<Entidade> {
             sessao.close();
         }
 
-        /*
-        Session sessao = HibernateUtil.getSessionFactory().openSession();
-        Transaction transacao = null;
-
-        try {
-            transacao = sessao.beginTransaction();
-            sessao.save(entidade);
-            sessao.getTransaction().commit();
-            
-        } catch (RuntimeException erro) {
-
-            transacao.rollback();
-        }
-        sessao.close();
-         */    }
+    }
 
     @SuppressWarnings("unchecked")
     public List<Entidade> listar() {

@@ -20,7 +20,7 @@ import org.junit.Test;
 public class EstadoDAOTest {
 
     @Test
-    //@Ignore
+    @Ignore
     public void salvar() {
 
         
