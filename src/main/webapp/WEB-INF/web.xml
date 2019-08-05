@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     
-    	<!-- Estágio do Projeto -->
-	<context-param>
+    <!-- Estágio do Projeto -->
+    <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
@@ -17,7 +17,7 @@
     
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/pages/*</url-pattern>
+        <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -25,6 +25,11 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/pages/estados.xhtml</welcome-file>
+        <welcome-file>estados.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <listener>
+        <listener-class>com.facdjunior.comercial.util.HibernateContexto</listener-class>
+    </listener>
+    
 </web-app>

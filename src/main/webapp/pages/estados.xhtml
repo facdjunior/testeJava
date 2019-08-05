@@ -11,15 +11,19 @@
     <h:body>
         <p:growl id="msg"/>
 
-        <h:form>
+        <h:form id="formLEstado">
 
             <p:panel header="Estados - Listagem">
-                <p:dataTable emptyMessage="Nenhum registro encontrado" paginator="true" value="#{estadoBean.estados}" var="estado">
+                <p:dataTable id="TblEstado" emptyMessage="Nenhum registro encontrado" 
+                             paginator="true" value="#{estadoBean.estados}" var="estado" rows="10">
                     <f:facet name="footer">
-                        <p:commandButton value="Novo" oncomplete="PF('dlgEstado').show();" actionListener="#{estadoBean.novo()}"
-                                         update=":frmCadastro:pnl"/>
+                        <p:commandButton value="Novo" oncomplete="PF('dlgEstado').show();" 
+                                         actionListener="#{estadoBean.novo()}"
+                                         update=":formEstado:pnlEstado">
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                        </p:commandButton>
                     </f:facet>
-                    <p:column headerText="Nome">
+                    <p:column headerText="Nome" filterBy="#{estado.nome}" sortBy="#{estado.nome}">
                         <h:outputText value="#{estado.nome}" />
                     </p:column>
 
@@ -28,14 +32,36 @@
                     </p:column>
 
                     <p:column headerText="Opções">
+                        <p:commandButton icon="ui-icon-trash"
+                                         actionListener="#{estadoBean.excluir}"
+                                         update=":msg :formLEstado:TblEstado">
+                            <p:confirm header="Confirmação" message="Deseja excluir o estado?"
+                                       icon="ui-icon-alert" />
+                            <f:attribute name="estadoSelecionado" value="#{estado}" />
+                        </p:commandButton>
+
+                        <p:commandButton icon="ui-icon-pencil"
+                                         actionListener="#{estadoBean.editar}"
+                                         update=":formEstado:pnlEstado"
+                                         oncomplete="PF('dlgEstado').show();">
+                            <f:attribute name="estadoSelecionado" value="#{estado}" />
+                        </p:commandButton>
                     </p:column>
                 </p:dataTable>
+
+                <p:confirmDialog global="true">
+                    <p:commandButton value="Sim" type="button"
+                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button"
+                                     styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+
             </p:panel>
         </h:form>
         <p:dialog header="Cadastro de Estados" widgetVar="dlgEstado" 
                   draggable="false" resizable="false" modal="true" closable="false">
-            <h:form id="frmCadastro">
-                <h:panelGrid id="pnl" columns="2">
+            <h:form id="formEstado">
+                <h:panelGrid id="pnlEstado" columns="2">
                     <p:outputLabel value="Estado"/>
                     <p:inputText maxlength="45" size="30" value="#{estadoBean.estado.nome}"/>
 
@@ -44,8 +70,8 @@
                 </h:panelGrid>
                 <h:panelGrid columns="2">
                     <p:commandButton value="Salvar" actionListener="#{estadoBean.salvar()}"
-                                     update=":msg :frmCadastro:pnl"/>
-                    <p:commandButton value="Fechar" oncomplete="PF('dlgEstado').hide()"/>
+                                     update=":msg :formEstado:pnlEstado :formLEstado:TblEstado"/>
+                    <p:commandButton value="Fechar" oncomplete="PF('dlgEstado').hide();"/>
                 </h:panelGrid>
             </h:form>
         </p:dialog>

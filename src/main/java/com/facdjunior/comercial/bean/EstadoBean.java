@@ -7,11 +7,12 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 
 /**
  *
- * @author UsuarioSaude
+ * @author Francisco Junior
  */
 @SuppressWarnings("serial")
 @ManagedBean
@@ -57,9 +58,11 @@ public class EstadoBean implements Serializable {
         try {
 
             EstadoDAO estadosDAO = new EstadoDAO();
-            estadosDAO.salvar(estado);
+            estadosDAO.merge(estado);
 
             novo();
+            listar();
+            
             Messages.addGlobalInfo("Registro gravado com sucesso");
 
         } catch (RuntimeException erro) {
@@ -67,4 +70,24 @@ public class EstadoBean implements Serializable {
             erro.printStackTrace();
         }
     }
+    
+    public void excluir(ActionEvent evento) {
+		try {
+			estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
+
+			EstadoDAO estadoDAO = new EstadoDAO();
+			estadoDAO.excluir(estado);
+			
+			estados = estadoDAO.listar();
+
+			Messages.addGlobalInfo("Estado removido com sucesso");
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar remover o estado");
+			erro.printStackTrace();
+		}
+	}
+	
+	public void editar(ActionEvent evento){
+		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
+	}
 }

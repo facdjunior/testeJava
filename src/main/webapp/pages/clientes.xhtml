@@ -8,17 +8,25 @@
         <title>Cadastro de clientes</title>
     </h:head>
     <h:body>
-        <h:form>
+        <p:growl id="msgCliente" />
+        <h:form id="formLCliente">
             <p:panel header="Cadastro de clientes">
-                <p:dataTable emptyMessage="Nenhum registro encontrado." paginator="true">
+                <p:dataTable id="TblCliente" emptyMessage="Nenhum registro encontrado." 
+                             paginator="true" value="#{cidadeBean.cidades}" var="cidade" rows="10">
                     <f:facet name="footer">
-                        <p:commandButton value="Novo" oncomplete="PF('dlgCliente').show();"/>
+                        <p:commandButton value="Novo" actionListener="#{cidadeBean.novo()}"
+                                         oncomplete="PF('dlgCliente').show();"
+                                         update=":msgCliente :formCliente:pnlCliente">
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                        </p:commandButton>
                     </f:facet>
 
-                    <p:column headerText="Nome">
+                    <p:column headerText="Nome" filterBy="#{cidade.nome}" sortBy="#{cidade.nome}">
+                        <h:outputText value="#{cidade.nome}"/>
                     </p:column>
 
                     <p:column headerText="CPF">
+                        <h:outputText value="#{cidade.estado.sigla}"/>
                     </p:column>
 
                     <p:column headerText="Data Cadastro">
@@ -34,8 +42,8 @@
         </h:form>
         <p:dialog header="Cadastro de clientes" widgetVar="dlgCliente"
                   draggable="false" resizable="false" modal="true" closable="false">
-            <h:form>
-                <h:panelGrid columns="2">
+            <h:form id="formCliente">
+                <h:panelGrid id="pnlCliente" columns="2">
                     
                      <p:outputLabel value="Cliente"/>
                     <p:selectOneMenu filter="true">

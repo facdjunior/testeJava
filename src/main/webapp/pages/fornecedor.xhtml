@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -8,32 +9,73 @@
         <title>Cadastro de fornecedor</title>
     </h:head>
     <h:body>
-        <h:form>
-            <p:panel header="Fornecedores">
-                <p:dataTable emptyMessage="Nenhum registro encontrado" paginator="true">
-                    <f:facet name="footer">
-                        <p:commandButton value="Novo" oncomplete="PF('dlgFornecedor').show();"/>
-                    </f:facet>
-                    <p:column headerText="Código:"></p:column>
-                    <p:column headerText="Empresa:"></p:column>
-                    <p:column headerText="Opções"></p:column>
-                </p:dataTable>
-            </p:panel>
-        </h:form>
-        <p:dialog header="Cadastro de fornecedores" widgetVar="dlgFornecedor" 
-                  draggable="false" resizable="false" modal="true" closable="false">
-            <h:form>
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Razão Social:"/>
-                    <p:inputText maxlength="120" size="45"/>
+        <p:growl id="msgFornecedor"/>
+                 <h:form id="formLFornecedor">
+                <p:panel id="pnlFornecedor" header="Fornecedores">
 
-                </h:panelGrid>
-                <h:panelGrid columns="2">
-                    <p:commandButton value="Salvar"/>
-                    <p:commandButton value="Fechar" oncomplete="PF('dlgFornecedor').hide()/>
-                </h:panelGrid>
+                    <p:dataTable id="TblFornecedor" emptyMessage="Nenhum registro encontrado" 
+                                 paginator="true" value="#{fornecedorBean.fabricantes}" var="fornecedor" rows="5">
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Novo" actionListener="#{fornecedorBean.novo}" 
+                                             oncomplete="PF('dlgFornecedor').show();"
+                                             update=":msgFornecedor :formFornecedor:pnlFornecedor">
+                                <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                            </p:commandButton>
+                        </f:facet>
+                        <p:column headerText="Código:">
+                            <h:outputText value="#{fornecedor.codigo}"/>    
+                        </p:column>
+                        <p:column headerText="Empresa:" filterBy="#{fornecedor.descricao}" 
+                                  sortBy="#{fornecedor.descricao}" >
+                            <h:outputText value="#{fornecedor.descricao}"/>
+                        </p:column>
+                        <p:column headerText="Opções">
+                            <p:commandButton icon="ui-icon-trash"
+                                             actionListener="#{fornecedorBean.excluir}"
+                                             update=":msgFornecedor :formLFornecedor:TblFornecedor">
+                                <p:confirm header="Confirmação" message="Deseja excluir o fabricante?"
+                                           icon="ui-icon-alert" />
+                                <f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
+                            </p:commandButton>
+
+                            <p:commandButton icon="ui-icon-pencil"
+                                             actionListener="#{fornecedorBean.editar}"
+                                             update=":msgFornecedor :formFornecedor:pnlFornecedor"
+                                             oncomplete="PF('dlgFornecedor').show();">
+                                <f:attribute name="fornecedorSelecionado" value="#{fornecedor}" />
+                                <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:confirmDialog global="true">
+                        <p:commandButton value="Sim" type="button"
+                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="Não" type="button"
+                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+
+                </p:panel>
             </h:form>
-        </p:dialog>
+
+            <p:dialog header="Cadastro de fornecedores" widgetVar="dlgFornecedor" 
+                      draggable="false" resizable="false" modal="true" closable="false">
+                <h:form id="formFornecedor">
+                    <h:panelGrid id="pnlFornecedor" columns="2">
+                        <p:outputLabel value="Razão Social:"/>
+                        <p:inputText maxlength="120" size="45"
+                                     value="#{fornecedorBean.fabricante.descricao}"/>
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Salvar" actionListener="#{fornecedorBean.salvar}"
+                                         update=":msgFornecedor :formFornecedor:pnlFornecedor :formLFornecedor:TblFornecedor"/>
+                        <p:commandButton value="Fechar" oncomplete="PF('dlgFornecedor').hide();"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
     </h:body>
 </html>
 

@@ -2,7 +2,7 @@ package com.facdjunior.comercial.domain;
 
 /**
  *
- * @author UsuarioSaude
+ * @author Francisco Alves 2019-08-05
  */
 import javax.persistence.Column;
 import javax.persistence.Entity;

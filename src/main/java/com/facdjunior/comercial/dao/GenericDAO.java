@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.facdjunior.comercial.dao;
 
 /**
  *
- * @author UsuarioSaude
+ * @author Francisco Alves
  */
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -18,6 +13,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.facdjunior.comercial.util.HibernateUtil;
+import org.hibernate.criterion.Order;
 
 public class GenericDAO<Entidade> {
 
@@ -61,6 +57,22 @@ public class GenericDAO<Entidade> {
             sessao.close();
         }
     }
+    
+    @SuppressWarnings("unchecked")
+    public List<Entidade> listar(String campoOrdenacao) {
+        Session sessao = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Criteria consulta = sessao.createCriteria(classe);
+            consulta.addOrder(Order.asc(campoOrdenacao));
+            List<Entidade> resultado = consulta.list();
+            return resultado;
+        } catch (RuntimeException erro) {
+            throw erro;
+        } finally {
+            sessao.close();
+        }
+    }
+    
 
     @SuppressWarnings("unchecked")
     public Entidade buscar(Long codigo) {
