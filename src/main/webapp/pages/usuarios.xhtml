@@ -1,69 +1,77 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Cadastro de usuarios</title>
-    </h:head>
-    <h:body>
-        <h:form>
-            <p:panel header="Cadastro de usuários">
-                <p:dataTable emptyMessage="Nenhum registro encontrdo" paginator="true">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro Usuários</title>
+</h:head>
+<h:body>
+	<p:growl id="msgUsuario" />
+	<h:form>
+		<p:panel header="Usuários - Listagem">
+			<p:dataTable emptyMessage="Nenhum registro encontrado."
+                                     paginator="true" value="#{usuarioBean.usuarios}" var="usuario"
+				rows="5">
+				<f:facet name="header">
+					<p:commandButton value="Novo" oncomplete="PF('dlgUsuario').show();" />
+				</f:facet>
 
-                    <f:facet name="header">
-                        <p:commandButton value="Novo" oncomplete="PF('dlgUsuario').show();"/>
-                    </f:facet>
+				<p:column headerText="Nome" sortBy="#{usuario.pessoa.nome}"
+					filterBy="#{usuario.pessoa.nome}">
+					<h:outputText value="#{usuario.pessoa.nome}" />
+				</p:column>
 
-                    <p:column headerText="Nome">
-                    </p:column>
+				<p:column headerText="CPF" sortBy="#{usuario.pessoa.cpf}"
+					filterBy="#{usuario.pessoa.cpf}">
+					<h:outputText value="#{usuario.pessoa.cpf}" />
+				</p:column>
 
-                    <p:column headerText="CPF">
-                    </p:column>
+				<p:column headerText="Tipo" sortBy="#{usuario.tipoFormatado}">
+					<h:outputText value="#{usuario.tipoFormatado}" />
+				</p:column>
 
-                    <p:column headerText="Tipo">
-                    </p:column>
+				<p:column headerText="Ativo" sortBy="#{usuario.ativoFormatado}">
+					<h:outputText value="#{usuario.ativoFormatado}" />
+				</p:column>
 
-                    <p:column headerText="Opções">
-                    </p:column>
+				<p:column headerText="Opções">
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
 
-                </p:dataTable>
-            </p:panel>
-        </h:form>
+	<p:dialog header="Usuários - Cadastro" widgetVar="dlgUsuario"
+		draggable="false" resizable="false" modal="true" closable="false">
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Pessoa:" />
+				<p:selectOneMenu filter="true">
+					<f:selectItem itemValue="" itemLabel="Selecione uma pessoa" />
+				</p:selectOneMenu>
 
-        <p:dialog header="Cadastro de usuários" widgetVar="dlgUsuario"
-                  draggable="false" resizable="false" modal="true" closable="false">
-            <h:form>
-                <h:panelGrid columns="2">
+				<p:outputLabel value="Senha:" />
+				<p:password maxlength="8" size="10" />
 
-                    <p:outputLabel value="Funcionario"/>
-                    <p:selectOneMenu filter="true">
-                        <f:selectItem itemValue="" itemLabel="Selecione um Cliente"/>
-                    </p:selectOneMenu>
+				<p:outputLabel value="Tipo:" />
+				<p:selectOneRadio>
+					<f:selectItem itemValue="A" itemLabel="Administrador" />
+					<f:selectItem itemValue="G" itemLabel="Gerente" />
+					<f:selectItem itemValue="B" itemLabel="Balconista" />
+				</p:selectOneRadio>
 
-                    <p:outputLabel value="Senha"/>
-                    <p:password maxlength="8" size="10"/>
+				<p:outputLabel value="Ativo:" />
+				<p:selectBooleanCheckbox />
 
-                    <p:outputLabel value="Tipo:"/>
-                    <p:selectOneRadio>
-                        <f:selectItem itemValue="A" itemLabel="Administrador"/>
-                        <f:selectItem itemValue="G" itemLabel="Gerente"/>
-                        <f:selectItem itemValue="B" itemLabel="Balconista"/>
-                    </p:selectOneRadio>
-                    
-                    <p:outputLabel value="Ativo:"/>
-                    <p:selectBooleanCheckbox />
-                    
-                </h:panelGrid>
+			</h:panelGrid>
 
-                <h:panelGrid columns="2">
-                    <p:commandButton value="Salvar"/>
-                    <p:commandButton value="Fechar" oncomplete="PF('dlgUsuario').hide();"/>
-                </h:panelGrid>
-            </h:form>
-        </p:dialog>
-
-    </h:body>
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" />
+				<p:commandButton value="Fechar" oncomplete="PF('dlgUsuario').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
 </html>
-

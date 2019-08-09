@@ -1,64 +1,92 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.facdjunior.comercial.domain;
 
 /**
  *
- * @author UsuarioSaude
+ * @author Francisco Junior
  */
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
+/**
+ *
+ * @author Francisco Junior
+ */
 @SuppressWarnings("serial")
 @Entity
+
 public class Usuario extends GenericDomain {
-	@Column(length = 32, nullable = false)
-	private String senha;
-	
-	@Column(nullable = false)
-	private Character tipo;
-	
-	@Column(nullable = false)
-	private Boolean ativo;
-	
-	@OneToOne
-	@JoinColumn(nullable = false)
-	private Pessoa pessoa;
 
-	public String getSenha() {
-		return senha;
-	}
+    @Column(length = 32, nullable = false)
+    private String senha;
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    @Column(nullable = false)
+    private Character tipo;
 
-	public Character getTipo() {
-		return tipo;
-	}
+    @Column(nullable = false)
+    private Boolean ativo;
 
-	public void setTipo(Character tipo) {
-		this.tipo = tipo;
-	}
+    @OneToOne
+    @JoinColumn(nullable = false)
+    private Pessoa pessoa;
 
-	public Boolean getAtivo() {
-		return ativo;
-	}
+    public String getSenha() {
+        return senha;
+    }
 
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
+    public Character getTipo() {
+        return tipo;
+    }
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
+    @Transient
+    public String getTipoFormatado() {
+        String tipoFormatado = null;
+
+        if (tipo == 'A') {
+            tipoFormatado = "Administrador";
+        } else if (tipo == 'B') {
+            tipoFormatado = "Balconista";
+        } else if (tipo == 'G') {
+            tipoFormatado = "Gerente";
+        }
+
+        return tipoFormatado;
+    }
+
+    public void setTipo(Character tipo) {
+        this.tipo = tipo;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    @Transient
+    public String getAtivoFormatado() {
+        String ativoFormatado = "Não";
+
+        if (ativo) {
+            ativoFormatado = "Sim";
+        }
+
+        return ativoFormatado;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
 }
