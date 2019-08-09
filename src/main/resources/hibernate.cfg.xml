@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
- "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+
 <hibernate-configuration>
     <session-factory>
         
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3308/comercial?serverTimezone=UTC</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/comercial?serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.password">frcd2202</property>
     
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.connection.autocommit">true</property>
@@ -27,7 +29,7 @@
         <property name="hibernate.show_sql">true</property>
 		
 
-        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         
         
         <!-- dbcp connection pool configuration -->
@@ -35,10 +37,18 @@
         <property name="hibernate.dbcp.maxTotal">20</property>
         <property name="hibernate.dbcp.maxIdle">10</property>
         <property name="hibernate.dbcp.minIdle">5</property>
-        <property name="hibernate.dbcp.maxWaitMillis">-1</property>
+       
         
         <mapping class="com.facdjunior.comercial.domain.Cidade"/>
+        <mapping class="com.facdjunior.comercial.domain.Cliente"/>
         <mapping class="com.facdjunior.comercial.domain.Estado"/>
+        <mapping class="com.facdjunior.comercial.domain.Fabricante"/>
+        <mapping class="com.facdjunior.comercial.domain.Funcionario"/>
+        <mapping class="com.facdjunior.comercial.domain.ItemVenda"/>
+        <mapping class="com.facdjunior.comercial.domain.Pessoa"/>
+        <mapping class="com.facdjunior.comercial.domain.Produto"/>
+        <mapping class="com.facdjunior.comercial.domain.Usuario"/>
+        <mapping class="com.facdjunior.comercial.domain.Venda"/>
         
     
     </session-factory>

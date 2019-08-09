@@ -44,7 +44,7 @@ public class FornecedorBean implements Serializable{
         try {
             
             FabricanteDAO fabricanteDAO = new FabricanteDAO();
-            fabricantes = fabricanteDAO.listar();
+            fabricantes = fabricanteDAO.listar("descricao");
             
         } catch (RuntimeException erro) {
             Messages.addGlobalError("Ocorreu um erro ao tentar listar registros");

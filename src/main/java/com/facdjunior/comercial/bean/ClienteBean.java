@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 import org.omnifaces.util.Messages;
 
 /**
@@ -53,7 +54,7 @@ public class ClienteBean implements Serializable{
     public void listar(){
         try {
             ClienteDAO clienteDAO = new ClienteDAO();
-            clientes = clienteDAO.listar("pessoa.nome");
+            clientes = clienteDAO.listar("dataCadastro");
             
         } catch (RuntimeException erro) {
             
@@ -86,12 +87,47 @@ public class ClienteBean implements Serializable{
             clienteDAO.merge(cliente);
             
             novo();
+            listar();
             
             Messages.addGlobalInfo("Registro gravado com sucesso");
             
         } catch (RuntimeException erro) {
             
             Messages.addGlobalError("Erro ao tentar gravar Registro");
+            erro.printStackTrace();
+        }
+    }
+    
+    public void excluir(ActionEvent evento) {
+
+        try {
+
+            cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
+
+            ClienteDAO clienteDAO = new ClienteDAO();
+            clienteDAO.excluir(cliente);
+
+            listar();
+
+            Messages.addGlobalInfo("Registro removido com sucesso!");
+
+        } catch (RuntimeException erro) {
+
+            Messages.addGlobalError("Não foi possível excluir Registro!");
+            erro.printStackTrace();
+        }
+    }
+    
+    public void editar(ActionEvent evento){
+        try {
+         cliente = (Cliente) evento.getComponent().getAttributes().get("clienteSelecionado");
+
+            PessoaDAO pessoaDAO = new PessoaDAO();
+            pessoas = pessoaDAO.listar("nome");
+
+        } catch (RuntimeException erro) {
+
+            Messages.addGlobalError("Ocorreu erro ao tentar selecionar cadastro!");
             erro.printStackTrace();
         }
     }
