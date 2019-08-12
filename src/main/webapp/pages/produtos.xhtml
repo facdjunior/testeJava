@@ -20,7 +20,7 @@
                              paginator="true" value="#{produtoBean.produtos}" 
                              var="produto" rows="10">
                     <f:facet name="footer">
-                        <p:commandButton value="Novo" actionListener="#{produtoBean.novo()}"
+                        <p:commandButton value="Novo" actionListener="#{produtoBean.novo}"
                                          oncomplete="PF('dlgProduto').show();"
                                          update=":msgProduto :formProduto:pnlProduto">
                             <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
@@ -118,8 +118,12 @@
                     <p:outputLabel for="foto" value="Foto:"/>
                     <p:fileUpload id="foto" mode="advanced" 
                                   fileUploadListener="#{produtoBean.upload}"
-                                  auto="true"/>
-
+                                  update=":msgProduto :formProduto:imagem" auto="true"/>
+                    
+                    <p:outputLabel for="imagem" value="Imagem"/>
+                    <p:graphicImage id="imagem" value="#{imagemBean.foto}" width="130px">
+                        <f:param name="caminho" value="#{produtoBean.produto.caminho}"/>
+                    </p:graphicImage>
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">
