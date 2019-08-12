@@ -6,13 +6,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Cadastro de produtos</title>
     </h:head>
     <h:body>
 
         <p:growl id="msgProduto"/>
 
-        <h:form id="formLProduto">
+        <h:form id="formLProduto" >
 
             <p:panel>
                 <p:dataTable id="TblProduto" emptyMessage="Nenhum registro encontrado" 
@@ -77,7 +78,7 @@
 
         <p:dialog header="Cadastro de produtos" widgetVar="dlgProduto"
                   draggable="false" resizable="false" modal="true" closable="false">
-            <h:form id="formProduto">
+            <h:form id="formProduto" enctype="multipart/form-data">
                 <h:panelGrid id="pnlProduto" columns="2">
 
                     <p:outputLabel value="Descrição:"/>
@@ -113,6 +114,12 @@
                         <f:selectItems value="#{produtoBean.fabricantes}" var="fabricante"
                                        itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}"/>
                     </p:selectOneMenu>
+
+                    <p:outputLabel for="foto" value="Foto:"/>
+                    <p:fileUpload id="foto" mode="advanced" 
+                                  fileUploadListener="#{produtoBean.upload}"
+                                  auto="true"/>
+
                 </h:panelGrid>
 
                 <h:panelGrid columns="2">

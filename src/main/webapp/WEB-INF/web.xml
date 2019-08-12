@@ -10,6 +10,40 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
         <param-value>Development</param-value>
     </context-param>
     
+    <!-- Definir mecanismo de Upload de arquivos -->
+    <context-param>
+        <param-name>primefaces.UPLOADER</param-name>
+        <param-value>native</param-value>
+    </context-param>
+    
+    <filter>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <filter-class>
+            org.primefaces.webapp.filter.FileUploadFilter
+        </filter-class>
+        
+        <init-param>
+            <param-name>thresholdSize</param-name>
+            <param-value>51200</param-value>
+        </init-param>
+        
+        <init-param>
+            <param-name>uploadDirectory</param-name>
+            <param-value>/Users/primefaces/temp</param-value>
+        </init-param>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+    
+    <!-- Tema do PrimeFaces -->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>redmond</param-value>
+    </context-param>
+    
     <!-- Configuração do JSF -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -31,5 +65,6 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
         <welcome-file>estados.xhtml</welcome-file>
     </welcome-file-list>
     
+ 
     
 </web-app>
