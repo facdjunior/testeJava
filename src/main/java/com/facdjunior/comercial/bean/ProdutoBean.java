@@ -63,7 +63,7 @@ public class ProdutoBean implements Serializable {
         try {
 
             ProdutoDAO produtoDAO = new ProdutoDAO();
-            produtos = produtoDAO.listar();
+            produtos = produtoDAO.listar("descricao");
 
         } catch (RuntimeException erro) {
 

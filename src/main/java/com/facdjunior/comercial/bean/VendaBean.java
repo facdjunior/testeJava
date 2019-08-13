@@ -1,11 +1,18 @@
 package com.facdjunior.comercial.bean;
 
+import com.facdjunior.comercial.dao.ClienteDAO;
+import com.facdjunior.comercial.dao.FuncionarioDAO;
 import com.facdjunior.comercial.dao.ProdutoDAO;
+import com.facdjunior.comercial.dao.VendaDAO;
+import com.facdjunior.comercial.domain.Cliente;
+import com.facdjunior.comercial.domain.Funcionario;
 import com.facdjunior.comercial.domain.ItemVenda;
 import com.facdjunior.comercial.domain.Produto;
+import com.facdjunior.comercial.domain.Venda;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -24,6 +31,9 @@ public class VendaBean implements Serializable {
 
     private List<Produto> produtos;
     private List<ItemVenda> itensVendas;
+    private List<Cliente> clientes;
+    private List<Funcionario> funcionarios;
+    private Venda venda;
 
     public List<Produto> getProdutos() {
         return produtos;
@@ -41,9 +51,47 @@ public class VendaBean implements Serializable {
         this.itensVendas = itemVendas;
     }
 
+    public List<ItemVenda> getItensVendas() {
+        return itensVendas;
+    }
+
+    public void setItensVendas(List<ItemVenda> itensVendas) {
+        this.itensVendas = itensVendas;
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
+
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+    
+    
+    
+
     @PostConstruct
-    public void listar() {
+    public void novo() {
         try {
+            
+            venda = new Venda();
+            venda.setPrecoTotal(new BigDecimal("0.00"));
 
             ProdutoDAO produtoDAO = new ProdutoDAO();
             produtos = produtoDAO.listar("descricao");
@@ -85,6 +133,8 @@ public class VendaBean implements Serializable {
 
             itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
         }
+        
+        calcularVenda();
     }
 
     public void remover(ActionEvent evento) {
@@ -99,6 +149,55 @@ public class VendaBean implements Serializable {
         }
         if(item > -1){
             itensVendas.remove(item);
+        }
+        calcularVenda();
+    }
+    
+    public void calcularVenda(){
+        venda.setPrecoTotal(new BigDecimal("0.00"));
+        
+        for(int i = 0; i < itensVendas.size(); i++){
+            ItemVenda itemVenda = itensVendas.get(i);
+            venda.setPrecoTotal(venda.getPrecoTotal().add(itemVenda.getPrecoParcial()));
+        }
+    }
+    
+    public void finalizar(){
+        try {
+            venda.setHorario(new Date());
+            
+            FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+            funcionarios = funcionarioDAO.listarOdenado();
+            
+            ClienteDAO clienteDAO = new ClienteDAO();
+            clientes = clienteDAO.listarOdenado();
+            
+            
+        } catch (RuntimeException erro) {
+            
+            Messages.addGlobalError("Ocorreu um erro ao tentar finalizar venda");
+            erro.printStackTrace();
+        }
+    }
+    
+    public void salvar(){
+        
+        try {
+            
+            if(venda.getPrecoTotal().signum() == 0){
+                Messages.addGlobalError("Venda não poder ser com valor igual R$: 0,00!");
+                return;
+            }
+            
+            VendaDAO vendaDAO = new VendaDAO();
+            vendaDAO.salvar(venda, itensVendas);
+            
+            Messages.addGlobalInfo("Regristro gravado com Sucesso!");
+                    
+            
+        } catch (RuntimeException erro) {
+            Messages.addGlobalError("Ocorreu um erro ao tentar finalizar a venda!");
+            erro.printStackTrace();
         }
     }
 
