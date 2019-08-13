@@ -46,9 +46,11 @@
 
                         <p:commandButton icon="ui-icon-pencil"
                                          actionListener="#{pessoaBean.editar}"
-                                         update=":formPessoa:pnlPessoa"
+                                         update=":msgPessoa :formPessoa:pnlPessoa :formLPessoa:TblPessoa"
                                          oncomplete="PF('dlgPessoa').show();">
                             <f:attribute name="pessoaSelecionada" value="#{pessoa}" />
+                            <f:actionListener
+                                type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
@@ -61,7 +63,7 @@
                 </p:confirmDialog>
             </p:panel>
         </h:form>
-        
+
         <p:dialog header="Cadastro de clientes" widgetVar="dlgPessoa" 
                   draggable="false" resizable="false" modal="true" closable="false">
             <h:form id="formPessoa">
@@ -145,7 +147,9 @@
                 </h:panelGrid>
                 <h:panelGrid columns="2">
                     <p:commandButton value="Salvar" actionListener="#{pessoaBean.salvar}"
-                                     update=":msgPessoa :formPessoa:pnlPessoa :formLPessoa:TblPessoa"/>
+                                     update=":msgPessoa :formPessoa:pnlPessoa :formLPessoa:TblPessoa">
+                        <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                    </p:commandButton>
                     <p:commandButton value="Fechar" oncomplete="PF('dlgPessoa').hide();"/>
                 </h:panelGrid>
             </h:form>

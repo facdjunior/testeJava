@@ -40,8 +40,6 @@ public class VendaBean implements Serializable {
     public void setItemVendas(List<ItemVenda> itemVendas) {
         this.itensVendas = itemVendas;
     }
-    
-    
 
     @PostConstruct
     public void listar() {
@@ -49,7 +47,7 @@ public class VendaBean implements Serializable {
 
             ProdutoDAO produtoDAO = new ProdutoDAO();
             produtos = produtoDAO.listar("descricao");
-            
+
             itensVendas = new ArrayList<>();
 
         } catch (RuntimeException erro) {
@@ -58,18 +56,50 @@ public class VendaBean implements Serializable {
             erro.printStackTrace();
         }
     }
-    
-    public void adicionar(ActionEvent evento){
-        
+
+    public void adicionar(ActionEvent evento) {
+
         Produto produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
-        
-        ItemVenda itemVenda = new ItemVenda();
-        
-        itemVenda.setPrecoParcial(produto.getPreco());
-        itemVenda.setProduto(produto);
-        itemVenda.setQuantidade(new Short("1"));
-        
-        itensVendas.add(itemVenda);
+
+        int item = -1;
+
+        for (int i = 0; i < itensVendas.size(); i++) {
+            if (itensVendas.get(i).getProduto().equals(produto)) {
+                item = i;
+            }
+        }
+
+        if (item < 0) {
+
+            ItemVenda itemVenda = new ItemVenda();
+
+            itemVenda.setPrecoParcial(produto.getPreco());
+            itemVenda.setProduto(produto);
+            itemVenda.setQuantidade(new Short("1"));
+
+            itensVendas.add(itemVenda);
+
+        } else {
+            ItemVenda itemVenda = itensVendas.get(item);
+            itemVenda.setQuantidade(new Short(itemVenda.getQuantidade() + 1 + ""));
+
+            itemVenda.setPrecoParcial(produto.getPreco().multiply(new BigDecimal(itemVenda.getQuantidade())));
+        }
+    }
+
+    public void remover(ActionEvent evento) {
+
+        ItemVenda itemVenda = (ItemVenda) evento.getComponent().getAttributes().get("itemSelecionado");
+
+        int item = -1;
+        for (int i = 0; i < itensVendas.size(); i++) {
+            if (itensVendas.get(i).getProduto().equals(itemVenda.getProduto())) {
+                item = i;
+            }
+        }
+        if(item > -1){
+            itensVendas.remove(item);
+        }
     }
 
 }
