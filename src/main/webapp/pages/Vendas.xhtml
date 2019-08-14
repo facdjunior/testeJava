@@ -1,15 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Balcão de venda</title>
-    </h:head>
-    <h:body>
+      xmlns:p="http://primefaces.org/ui"
+      template="/templates/modelo.xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:define name="conteudo">
 
         <p:growl id="msgVenda"/>
 
@@ -18,7 +17,8 @@
             <p:panel header="Produtos">
                 <p:dataTable id="TblProduto" emptyMessage="Nenhum registro encontrado" 
                              paginator="true" value="#{vendaBean.produtos}" 
-                             var="produto" rows="5" paginatorPosition="bottom">
+                             var="produto" rows="5" paginatorPosition="bottom"
+                             reflow="true">
                     <p:column headerText="Descrição" filterBy="#{produto.descricao}" 
                               sortBy="#{produto.descricao}">
                         <h:outputText value="#{produto.descricao}"/>
@@ -140,10 +140,11 @@
 
                 <h:panelGrid columns="2">
                     <p:commandButton value="Salvar" actionListener="#{vendaBean.salvar}"
-                                     update=":msgVenda" oncomplete="PF('dlgVenda').hide();"/>
+                                     update=":msgVenda :formVenda:pnlVenda :formVenda:TblProduto 
+                                     :formVenda:TblItemVenda" oncomplete="PF('dlgVenda').hide();"/>
                     <p:commandButton value="Fechar" oncomplete="PF('dlgVenda').hide();"/>
                 </h:panelGrid>
             </h:form>
         </p:dialog>
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>

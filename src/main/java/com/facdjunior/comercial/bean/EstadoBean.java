@@ -2,12 +2,20 @@ package com.facdjunior.comercial.bean;
 
 import com.facdjunior.comercial.domain.Estado;
 import com.facdjunior.comercial.dao.EstadoDAO;
+import com.facdjunior.comercial.util.HibernateUtil;
 import java.io.Serializable;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 /**
@@ -90,4 +98,20 @@ public class EstadoBean implements Serializable {
 	public void editar(ActionEvent evento){
 		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");
 	}
+        
+        public void imprimir(){
+            try{
+            String relatorio = Faces.getRealPath("/reports/estados.jasper");
+            Map<String, Object> parametros = new HashMap<>();
+            
+            Connection conexao = HibernateUtil.getConexao();
+            
+            
+            JasperFillManager.fillReport(relatorio, parametros, conexao);
+                JasperPrintManager.printReport(relatorio, false);
+            
+            }catch(JRException erro){
+                Messages.addGlobalError("Ocorreu um erro ao tentar gerar relatório");
+            }
+        }
 }

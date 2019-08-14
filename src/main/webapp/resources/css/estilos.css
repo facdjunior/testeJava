@@ -1,0 +1,22 @@
+@charset "UTF-8";
+/* 
+    Created on : 14 de ago de 2019, 09:32:24
+    Author     : Francisco Junior
+*/
+
+.imagemCentralizada{
+    display: block;
+    margin-left: auto ;
+    margin-right: auto;
+}
+
+.divTop{
+    padding-bottom: 5px; 
+}
+
+.divCabecalho{
+     padding-bottom: 5px; 
+}
+.ui-widget, .ui-widget .ui-widget{
+    font-size: 98%;
+}
