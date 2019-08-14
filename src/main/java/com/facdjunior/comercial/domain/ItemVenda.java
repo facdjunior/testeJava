@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.facdjunior.comercial.domain;
 
 /**
@@ -19,49 +14,62 @@ import javax.persistence.ManyToOne;
 @SuppressWarnings("serial")
 @Entity
 public class ItemVenda extends GenericDomain {
-	@Column(nullable = false)
-	private Short quantidade;
-	
-	@Column(nullable = false, precision = 7, scale = 2)
-	private BigDecimal precoParcial;
-	
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Produto produto;
-	
-	@ManyToOne
-	@JoinColumn(nullable = false)
-	private Funcionario funcionario;
 
-	public Short getQuantidade() {
-		return quantidade;
-	}
+    @Column(nullable = false)
+    private Short quantidade;
 
-	public void setQuantidade(Short quantidade) {
-		this.quantidade = quantidade;
-	}
+    @Column(nullable = false, precision = 7, scale = 2)
+    private BigDecimal precoParcial;
 
-	public BigDecimal getPrecoParcial() {
-		return precoParcial;
-	}
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Produto produto;
 
-	public void setPrecoParcial(BigDecimal precoParcial) {
-		this.precoParcial = precoParcial;
-	}
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Funcionario funcionario;
 
-	public Produto getProduto() {
-		return produto;
-	}
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Venda venda;
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
+    public Short getQuantidade() {
+        return quantidade;
+    }
 
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
+    public void setQuantidade(Short quantidade) {
+        this.quantidade = quantidade;
+    }
 
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
+    public BigDecimal getPrecoParcial() {
+        return precoParcial;
+    }
+
+    public void setPrecoParcial(BigDecimal precoParcial) {
+        this.precoParcial = precoParcial;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
 }
