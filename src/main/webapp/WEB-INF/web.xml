@@ -38,6 +38,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
     <!-- Stimusoft -->
+    
     <servlet>
         <servlet-name>StimulsoftResource</servlet-name>
         <servlet-class>com.stimulsoft.web.servlet.StiWebResourceServlet</servlet-class>
@@ -54,7 +55,23 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
         <servlet-name>StimulsoftDesignerAction</servlet-name>
         <url-pattern>/stimulsoft_webdesigner_action</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>StimulsoftAction</servlet-name>
+        <servlet-class>com.stimulsoft.webviewer.servlet.StiWebViewerActionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StimulsoftAction</servlet-name>
+        <url-pattern>/stimulsoft_webviewer_action</url-pattern>
+    </servlet-mapping>    
+    <servlet>
+        <servlet-name>StimulsoftExportAction</servlet-name>
+        <servlet-class>com.stimulsoft.ExportServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StimulsoftExportAction</servlet-name>
+        <url-pattern>/export</url-pattern>
+    </servlet-mapping>
+
     <!-- Tema do PrimeFaces -->
     <context-param>
         <param-name>primefaces.THEME</param-name>
