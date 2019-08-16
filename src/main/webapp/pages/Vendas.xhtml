@@ -18,7 +18,7 @@
                 <p:dataTable id="TblProduto" emptyMessage="Nenhum registro encontrado" 
                              paginator="true" value="#{vendaBean.produtos}" 
                              var="produto" rows="5" paginatorPosition="bottom"
-                             reflow="true">
+                             >
                     <p:column headerText="Descrição" filterBy="#{produto.descricao}" 
                               sortBy="#{produto.descricao}">
                         <h:outputText value="#{produto.descricao}"/>
