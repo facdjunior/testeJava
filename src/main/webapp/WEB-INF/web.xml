@@ -11,8 +11,11 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
         <param-value>/WEB-INF/faces-config.xml</param-value>
     </context-param>
     
-    <listener>com.facdjunior.comercial.util.AutenticacaoListener</listener>
-    
+    <servlet>	
+        <servlet-name>Faces Servlet</servlet-name>			
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>	
+    </servlet>		
+   
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
@@ -103,5 +106,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+   
     
 </web-app>

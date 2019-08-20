@@ -22,7 +22,7 @@
             <div id="cabecalho" class="divCabecalho">
                 <h:form>
                     <p:menubar>
-                        <p:submenu label="Cadastros">
+                        <p:submenu label="Cadastros" rendered="#{autenticacaoBean.temPermissoes(['A','G'])}">
                             <p:menuitem value="Estado"  url="estados.xhtml"/>
                             <p:menuitem value="Cidade" url="cidades.xhtml"/>
                             <p:menuitem value="Fornecedor" url="fornecedor.xhtml"/>

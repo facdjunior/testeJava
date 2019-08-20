@@ -14,9 +14,9 @@
             <p:panel header="Clientes">
                 <p:dataTable id="TblUsuario" emptyMessage="Nenhum registro encontrado."
                              paginator="true" value="#{usuarioBean.usuarios}" var="usuario"
-                             rows="5" paginatorPosition="bottom" reflow="true">
+                             rows="5" paginatorPosition="bottom">
                     <f:facet name="footer">
-                        <p:commandButton value="Novo" actionListener="#{usuarioBean.novo()}" 
+                        <p:commandButton value="Novo" actionListener="#{usuarioBean.novo}" 
                                          oncomplete="PF('dlgUsuario').show();"
                                          update=":msgUsuario :formUsuario:pnlUsuario">
                             <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
@@ -89,7 +89,7 @@
 
                     <p:outputLabel for="senha" value="Senha:" />
                     <p:password id="senha" maxlength="8" size="10"
-                                value="#{usuarioBean.usuario.senha}" required="true"
+                                value="#{usuarioBean.usuario.senhaSemCriptografia}" required="true"
                                 requiredMessage="O campo 'Senha' é obrigatório"
                                 validatorMessage="Informe uma senha de 6 a 8 caracteres">
                         <f:validateLength minimum="6" maximum="8" />

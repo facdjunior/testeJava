@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import org.apache.shiro.crypto.hash.SimpleHash;
 
 import org.omnifaces.util.Messages;
 
@@ -54,10 +55,10 @@ public class UsuarioBean implements Serializable {
     @PostConstruct
     public void listar() {
         try {
-            
+
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             usuarios = usuarioDAO.listar("tipo");
-            
+
         } catch (RuntimeException erro) {
             Messages.addGlobalError("Ocorreu um erro ao tentar listar os usuários");
             erro.printStackTrace();
@@ -70,7 +71,7 @@ public class UsuarioBean implements Serializable {
 
             PessoaDAO pessoaDAO = new PessoaDAO();
             pessoas = pessoaDAO.listar("nome");
-            
+
         } catch (RuntimeException erro) {
             Messages.addGlobalError("Ocorreu um erro ao tentar criar um novo usuário");
             erro.printStackTrace();
@@ -79,7 +80,12 @@ public class UsuarioBean implements Serializable {
 
     public void salvar() {
         try {
+
             UsuarioDAO usuarioDAO = new UsuarioDAO();
+            
+            SimpleHash hash = new SimpleHash("md5", usuario.getSenhaSemCriptografia());
+            usuario.setSenha(hash.toHex());
+            
             usuarioDAO.merge(usuario);
 
             novo();
@@ -121,7 +127,6 @@ public class UsuarioBean implements Serializable {
         try {
             usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
 
-            
             PessoaDAO pessoaDAO = new PessoaDAO();
             pessoas = pessoaDAO.listar("nome");
 
