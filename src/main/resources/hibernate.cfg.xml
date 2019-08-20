@@ -39,12 +39,14 @@
         <property name="hibernate.dbcp.minIdle">5</property>
        
         
+        <mapping class="com.facdjunior.comercial.domain.Caixa"/>
         <mapping class="com.facdjunior.comercial.domain.Cidade"/>
         <mapping class="com.facdjunior.comercial.domain.Cliente"/>
         <mapping class="com.facdjunior.comercial.domain.Estado"/>
         <mapping class="com.facdjunior.comercial.domain.Fabricante"/>
         <mapping class="com.facdjunior.comercial.domain.Funcionario"/>
         <mapping class="com.facdjunior.comercial.domain.ItemVenda"/>
+        <mapping class="com.facdjunior.comercial.domain.MovimentacaoCaixa"/>
         <mapping class="com.facdjunior.comercial.domain.Pessoa"/>
         <mapping class="com.facdjunior.comercial.domain.Produto"/>
         <mapping class="com.facdjunior.comercial.domain.Usuario"/>

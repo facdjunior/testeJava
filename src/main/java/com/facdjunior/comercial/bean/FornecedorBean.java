@@ -101,9 +101,10 @@ public class FornecedorBean implements Serializable {
             fabricante = (Fabricante) evento.getComponent().getAttributes().get("fornecedorSelecionado");
 
             Client cliente = ClientBuilder.newClient();
-            WebTarget caminho = cliente.target("http://localhost:8080/Comercial/rest/fabricante/");
-
-            caminho.path("{codigo}").resolveTemplate("codigo",fabricante.getCodigo()).request().delete();
+            WebTarget caminho = 
+                    cliente.target("http://localhost:8080/Comercial/rest/fabricante/");
+            
+            caminho.path("{codigo}").resolveTemplate("codigo", fabricante.getCodigo()).request().delete();
             String json = caminho.request().get(String.class);
             
             Gson gson = new Gson();

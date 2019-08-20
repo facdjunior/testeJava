@@ -18,7 +18,7 @@
                 <p:dataTable id="TblProduto" emptyMessage="Nenhum registro encontrado" 
                              paginator="true" value="#{produtoBean.produtos}" 
                              var="produto" rows="10" paginatorPosition="bottom"
-                             reflow="true">
+                             >
                     <f:facet name="footer">
                         <p:commandButton value="Novo" actionListener="#{produtoBean.novo}"
                                          oncomplete="PF('dlgProduto').show();"

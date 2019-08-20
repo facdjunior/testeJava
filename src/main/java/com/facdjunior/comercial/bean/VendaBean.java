@@ -196,6 +196,7 @@ public class VendaBean implements Serializable {
             
             novo();
             
+            
             Messages.addGlobalInfo("Regristro gravado com Sucesso!");
                     
             
