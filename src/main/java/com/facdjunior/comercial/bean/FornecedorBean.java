@@ -1,6 +1,7 @@
 package com.facdjunior.comercial.bean;
 
-import com.facdjunior.comercial.dao.FabricanteDAO;
+
+import com.facdjunior.comercial.domain.Endereco;
 import com.facdjunior.comercial.domain.Fabricante;
 
 import com.google.gson.Gson;
@@ -52,6 +53,8 @@ public class FornecedorBean implements Serializable {
     @PostConstruct
     public void listar() {
         try {
+            
+            Endereco endereco = new Endereco();
 
             Client cliente = ClientBuilder.newClient();
             WebTarget caminho = cliente.target("http://127.0.0.1:8080/Comercial/rest/fabricante");

@@ -4,142 +4,150 @@ package com.facdjunior.comercial.domain;
  *
  * @author UsuarioSaude
  */
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
 @SuppressWarnings("serial")
 @Entity
 public class Pessoa extends GenericDomain {
+
+    @Column(length = 50, nullable = false)
+    private String nome;
+
+    @Column(length = 14, nullable = false)
+    private String cpf;
+
+    @Column(length = 12, nullable = false)
+    private String rg;
+
+    @SerializedName("logradouro")
+    @Expose
+    @Column(length = 100, nullable = false)
+    private String rua;
+
+    @Column(nullable = false)
+    private Short numero;
     
-	@Column(length = 50, nullable = false)
-	private String nome;
-	
-	@Column(length = 14, nullable = false)
-	private String cpf;
-	
-	@Column(length = 12, nullable = false)
-	private String rg;
-	
-	@Column(length = 100, nullable = false)
-	private String rua;
-	
-	@Column(nullable = false)
-	private Short numero;
-	
-	@Column(length = 30, nullable = false)
-	private String bairro;
-	
-	@Column(length = 10, nullable = false)
-	private String cep;
-	
-	@Column(length = 10)
-	private String complemento;
-	
-	@Column(length = 13, nullable = false)
-	private String telefone;
+    @SerializedName("bairro")
+    @Expose
+    @Column(length = 30, nullable = false)
+    private String bairro;
 
-	@Column(length = 14, nullable = false)
-	private String celular;
-	
-	@Column(length = 100, nullable = false)
-	private String email;
-        
-        @ManyToOne
-        @JoinColumn(nullable = false)
-        private Cidade cidade;
-	
-	// TODO Colocar o campo cidade
+    @SerializedName("cep")
+    @Expose
+    @Column(length = 10, nullable = false)
+    private String cep;
 
-	public String getNome() {
-		return nome;
-	}
+    @SerializedName("complemento")
+    @Expose
+    @Column(length = 10)
+    private String complemento;
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    @Column(length = 13, nullable = false)
+    private String telefone;
 
-	public String getCpf() {
-		return cpf;
-	}
+    @Column(length = 14, nullable = false)
+    private String celular;
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    @Column(length = 100, nullable = false)
+    private String email;
 
-	public String getRg() {
-		return rg;
-	}
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Cidade cidade;
 
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
+    // TODO Colocar o campo cidade
+    public String getNome() {
+        return nome;
+    }
 
-	public String getRua() {
-		return rua;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setRua(String rua) {
-		this.rua = rua;
-	}
+    public String getCpf() {
+        return cpf;
+    }
 
-	public Short getNumero() {
-		return numero;
-	}
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-	public void setNumero(Short numero) {
-		this.numero = numero;
-	}
+    public String getRg() {
+        return rg;
+    }
 
-	public String getBairro() {
-		return bairro;
-	}
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
+    public String getRua() {
+        return rua;
+    }
 
-	public String getCep() {
-		return cep;
-	}
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
 
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
+    public Short getNumero() {
+        return numero;
+    }
 
-	public String getComplemento() {
-		return complemento;
-	}
+    public void setNumero(Short numero) {
+        this.numero = numero;
+    }
 
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
+    public String getBairro() {
+        return bairro;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public String getCep() {
+        return cep;
+    }
 
-	public String getCelular() {
-		return celular;
-	}
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
+    public String getComplemento() {
+        return complemento;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Cidade getCidade() {
         return cidade;
@@ -148,6 +156,5 @@ public class Pessoa extends GenericDomain {
     public void setCidade(Cidade cidade) {
         this.cidade = cidade;
     }
-        
-        
+
 }
