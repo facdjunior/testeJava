@@ -77,11 +77,7 @@
             <artifactId>jstl-api</artifactId>
             <version>1.2</version>
         </dependency>
-        <dependency>
-            <groupId>com.kitfox.svg</groupId>
-            <artifactId>svg-salamander</artifactId>
-            <version>1.0</version>
-        </dependency>
+        
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
